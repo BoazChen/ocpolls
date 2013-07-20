@@ -1,24 +1,26 @@
  $(function() {
 	 
 	var sortObj = {
+	          
 		      connectWith: "ul",
 		      axis: "y",
 		      handle: ".grab",
+		      helper: 'clone',
+		      appendTo: $(".poll"),
 		      dropOnEmpty: true,
 		      start:function(e,ui){
 		    	  var $this = $(this);
 		    	  
 		    	  $(".dropAble").addClass("dropAbleOver")
-		    	  
-		    	  
-		    	  console.log($this.find("li").length);
-		    	  
 		      },
 		      stop:function(e,ui){
 		    	  $(".dropAbleOver").removeClass("dropAbleOver");
 		    	  
 		      },
 		      over:function(e,ui){
+		          if ($(ui.sender).find("li").length == 1) {
+		              $(ui.sender).hide().next().hide();
+		          }
 		    	  var $this = $(this);
 		    	  if ($this.hasClass("dropAble")){
 		    		  $this.addClass("dropAbleOverAndOut");
@@ -82,15 +84,9 @@
 		
 		$.each(data,function(i,val){
 			
-			$("<li>")
-			.attr({
-				id:i
-			})
+			$("<li>").data('id', i)
 			.append('<div class="grab"></div>' + val)
 			.appendTo($("#listDefault"));
-			
-			
-			
 		});
 		
 	}
@@ -112,39 +108,19 @@
 			var arr = new Array();
 			
 			//build array to send
-			$("ul.dropList").each(function(i,list){
-				if ($(list).find("li").length){
-					var innerArray = new Array();
-					$(list).find("li").each(function(i,item){
-						innerArray.push($(item).attr("id"));
-					});
-					arr.push(innerArray);
-				}
+			$("ul.dropList:has(li)").each(function(i,list){
+				var innerArray = new Array();
+				$(list).find("li").each(function(i,item){
+					innerArray.push($(item).data("id"));
+				});
+				arr.push(innerArray);
 			});
 			
 			//TODO: send array to server side
-			$("#hiddenVote").val(arrayToString(arr));
-			console.log(arrayToString(arr));
-			console.log(arr);
+			$("#hiddenVote").val(JSON.stringify(arr));
 		});
 	}
 	
-	function arrayToString(arr){
-		var str = "[";
-		for(var i=0; i<arr.length;i++){
-			var strInner = "[";
-			strInner += arr[i].toString();
-			strInner += "]";
-			
-			if (i != arr.length-1){
-				strInner+=",";
-			}
-			
-			str += strInner;
-		}
-		str +=	"]";
-		return str;
-	}
 	
 	
 });
