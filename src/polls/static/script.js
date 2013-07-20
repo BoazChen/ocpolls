@@ -86,7 +86,6 @@
 			.attr({
 				id:i
 			})
-			.addClass("ui-state-default")
 			.append('<div class="grab"></div>' + val)
 			.appendTo($("#listDefault"));
 			
