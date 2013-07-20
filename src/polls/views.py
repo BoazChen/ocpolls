@@ -14,8 +14,13 @@ class HomeView(CreateView):
     form_class = CreatePollForm
 
     def form_valid(self, form):
-        form.instance.proposals = form.cleaned_data['text'].splitlines()
+        form.instance.proposals = filter(None, form.cleaned_data['text'].strip().splitlines())
         return super(HomeView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        d = super(HomeView, self).get_context_data(**kwargs)
+        d['objects'] = Poll.objects.order_by('-created_at')[:10]
+        return d
 
 
 class PollView(DetailView):

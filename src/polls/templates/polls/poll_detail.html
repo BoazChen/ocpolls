@@ -4,7 +4,6 @@
     <script>
         var data = {{object.json_proposals|safe}};
     </script>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="{{STATIC_URL}}jquery.ui.touch-punch.js"></script>
     
@@ -14,21 +13,22 @@
     
     <div class="row-fluid">
         <div class="span12">
-    
-            <h1>
-                Poll #{{object.id}}
-            </h1>
-            
-            <div class="poll">
-                <ul id="listDefault" class="dropList"></ul>
+            <div class="well">
+                <h1>
+                    {{object.title}}
+                </h1>
+                
+                <div class="poll">
+                    <ul id="listDefault" class="dropList"></ul>
+                </div>
+                
+                <form method="post">
+                    <input type="hidden" name="vote" id="hiddenVote">
+                    </textarea>
+                    {% csrf_token %}
+                    <input class="btn btn-primary" type="submit" id="btnSubmit" value="Vote!" />
+                </form>
             </div>
-            
-            <form method="post">
-                <input type="hidden" name="vote" id="hiddenVote">
-                </textarea>
-                {% csrf_token %}
-                <input class="btn" type="submit" id="btnSubmit" value="Schulze The Madafaka" />
-            </form>
-            </div>
+        </div>
     </div>
 {% endblock %}

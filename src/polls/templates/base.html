@@ -1,12 +1,21 @@
+<!doctype html>
 <html>
 <head>
         <title>Polls</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="{{STATIC_URL}}bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="{{STATIC_URL}}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="{{STATIC_URL}}style.css" rel="stylesheet">
+        <script src="{{STATIC_URL}}jquery-1.10.2.min.js"></script>
         <meta charset="utf-8" />
 </head>
 <body>
+
+<div class="navbar navbar-inverse">
+  <div class="navbar-inner">
+    <a class="brand" href="{% url 'home' %}">Da Polls</a>
+  </div>
+</div>    
 	<div id="content" class="container">
 	    {% block content %}
 	    {% endblock %}

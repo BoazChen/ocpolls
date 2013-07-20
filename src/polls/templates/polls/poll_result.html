@@ -1,54 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    
-    
 
-<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="/static/style.css" />
-	
-	
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="well">
+                <h1>
+                    {{object.title}}
+                </h1>
+    
+                {% for g in object.calculate_result %}
+                    <table style="width:90%;margin:0 auto;">
+                        <tr>
+                            <td style="width:100px;text-align: center;">
+                                <h1 style="font-size: 50px;">{{forloop.counter}}</h1>
+                            </td>
+                            <td>
+                                <div class="poll">
+                                 	<ul class="dropList">
+                                  	{% for r in g %}
+                                    	<li>{{r}} </li>
+                                   	{% endfor %}
+                                	</ul>
+                            	</div>
+                            </td>
+                        </tr>
+                    </table>
+                {% endfor %}
 
-    
-    {% for g in object.calculate_result %}
-    
-    
-    <table style="width:90%;margin:0 auto;">
-    <tr>
-    <td style="width:100px;text-align: center;">
-    	<h1 style="font-size: 50px;">{{forloop.counter}}</h1>
-   	</td>
-    <td>
-    
-     	<ul class="dropList">
-      	{% for r in g %}
-        	<li>{{r}} </li>
-       	{% endfor %}
-    	</ul>
-    
-    </td>
-    </tr>
-    </table>
-    
-   
-    
-    {% endfor %}
-    
-    
-    
-    
-    
-    
-    <!-- 
-    <h1>Votes</h1>
-    <ul class="dropList">
-    {% for v in object.votes.all %}
-      <li>
-          {% for g in v.as_stringlist %}
-            [{{g|join:', '}}]
-          {% endfor %}
-      </li>
-    {% endfor %}
-    </ul>
-     -->
+            </div>
+        </div>
+
+        <div class="span6">
+            <div class="well">
+                <h3>Votes</h3>
+                <div class="poll">
+                    <ul class="dropList">
+                    {% for v in object.votes.all %}
+                      <li>
+                          {% for g in v.as_stringlist %}
+                            [{{g|join:', '}}]
+                          {% endfor %}
+                      </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

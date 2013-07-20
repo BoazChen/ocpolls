@@ -5,9 +5,10 @@ import json
 
 
 class Poll(models.Model):
+    title = models.CharField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
     proposals = JSONField()
-    # result = models.TextField(null=True, blank=True)
+    results = JSONField(null=True, blank=True)
 
     def calculate_result(self):
         valid_props = range(len(self.proposals))
@@ -27,6 +28,9 @@ class Poll(models.Model):
 
     def json_proposals(self):
         return json.dumps(self.proposals)
+
+    def __unicode__(self):
+        return self.title
 
 
 class Vote(models.Model):
