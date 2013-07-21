@@ -1,7 +1,14 @@
 # Django settings for ocpolls project.
+import os.path
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+PROJECT_DIR = os.path.abspath(
+                      os.path.join(os.path.dirname(__file__), '..', '..'))
+
+ABSDIR = lambda path: os.path.abspath(os.path.join(PROJECT_DIR, path))
+
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -61,7 +68,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = ABSDIR('static')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
